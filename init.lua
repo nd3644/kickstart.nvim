@@ -199,7 +199,6 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-
 -- nd: Set tab sizes
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -248,6 +247,8 @@ require('lazy').setup({
       },
     },
   },
+
+  { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 }, -- nd: adding a theme?
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -775,7 +776,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'moonfly'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
