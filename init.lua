@@ -1,25 +1,4 @@
 --[[
-
-=====================================================================
-==================== READ THIS BEFORE CONTINUING ====================
-=====================================================================
-========                                    .-----.          ========
-========         .----------------------.   | === |          ========
-========         |.-""""""""""""""""""-.|   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||   KICKSTART.NVIM   ||   |-----|          ========
-========         ||                    ||   | === |          ========
-========         ||                    ||   |-----|          ========
-========         ||:Tutor              ||   |:::::|          ========
-========         |'-..................-'|   |____o|          ========
-========         `"")----------------(""`   ___________      ========
-========        /::::::::::|  |::::::::::\  \ no mouse \     ========
-========       /:::========|  |==hjkl==:::\  \ required \    ========
-========      '""""""""""""'  '""""""""""""'  '""""""""""'   ========
-========                                                     ========
-=====================================================================
-=====================================================================
-
 What is Kickstart?
 
   Kickstart.nvim is *not* a distribution.
@@ -128,8 +107,10 @@ vim.opt.splitbelow = true
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+-- nd: This was causing issues
+--vim.opt.list = true
+--vim.opt.listchars = { tab = '»\', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -146,6 +127,10 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+
+-- ND: custom keybinds
+vim.api.nvim_set_keymap('n', '<F5>', ':!make all && make run<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F8>', ':!make clean && make all', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -203,6 +188,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
+-- nd: Enable auto indent
+vim.opt_local.autoindent = true
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -248,7 +236,14 @@ require('lazy').setup({
     },
   },
 
-  { 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 }, -- nd: adding a theme?
+  --{ 'bluz71/vim-moonfly-colors', name = 'moonfly', lazy = false, priority = 1000 }, -- nd: adding a theme?
+  {
+    'craftzdog/solarized-osaka.nvim',
+    name = 'solarized-osaka',
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -557,7 +552,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -776,8 +771,8 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'moonfly'
-
+      --vim.cmd.colorscheme 'moonfly'
+      vim.cmd.colorscheme 'solarized-osaka'
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
